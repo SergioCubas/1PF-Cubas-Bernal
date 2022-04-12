@@ -1,0 +1,41 @@
+@import '../../../../sass/variable';
+
+header{
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    box-sizing: border-box;
+    height: 10vh;
+    .logo{
+        display: flex;
+        img{
+            width: 100%;
+        }
+    }
+    .menu{
+        display: flex;
+        align-items: center;
+        ul{
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            li{
+                list-style: none;
+                a{
+                    text-transform: capitalize;
+                    font-size: 12px;
+                    text-decoration: none;
+                    padding: 8px 15px;
+                    color: $color-secondary;
+                }
+                &:last-child{
+                    a{
+                        background: $color-primary;
+                        color: $color-white;
+                    }
+                }
+            }
+        }
+    }
+}

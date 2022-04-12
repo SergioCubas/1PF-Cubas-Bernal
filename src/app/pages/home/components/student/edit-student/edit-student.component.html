@@ -1,0 +1,79 @@
+<div class="container-form">
+    <form  [formGroup]="frmStudent">
+
+        <div class="form-group">
+            <mat-form-field appearance="fill" >
+                <mat-label>ID</mat-label>
+                <input matInput formControlName='id' readonly>
+            </mat-form-field>
+        </div>
+
+        <div class="form-group">
+            <mat-form-field appearance="fill">
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName='name'>
+            </mat-form-field>
+            <div *ngIf="f.name.errors">
+                <p class="validate" *ngIf="f.name.errors.required">Este campo es obligatorio.</p>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <mat-form-field appearance="fill">
+                <mat-label>Apellidos</mat-label>
+                <input matInput formControlName='last_name'>
+            </mat-form-field>
+            <div *ngIf="f.last_name.errors">
+                <p class="validate" *ngIf="f.last_name.errors.required">Este campo es obligatorio.</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <mat-form-field appearance="fill">
+                <mat-label>Documento Identidad</mat-label>
+                <input matInput formControlName='document'>
+            </mat-form-field>
+            <div *ngIf="f.document.errors">
+                <p class="validate" *ngIf="f.document.errors.required">Este campo es obligatorio.</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <mat-form-field appearance="fill">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName='email'>
+            </mat-form-field>
+
+            <div *ngIf="f.email.errors" class="show-error">
+                <div *ngIf="f['email'].errors?.['required']" class="validate">Este campo es obligatorio.</div>
+                <div *ngIf="f['email'].errors?.['email'] && f['email'].dirty" class="validate">Ingrese un correo valido.</div>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <mat-form-field appearance="fill">
+                <mat-label>Curso</mat-label>
+                <mat-select formControlName='course'>
+                    <mat-option value="Python">Python</mat-option>
+                    <mat-option value="Data Science">Data Science</mat-option>
+                    <mat-option value="SQL">SQL</mat-option>
+                    <mat-option value="IA">IA</mat-option>
+                    <mat-option value="Java">Java</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div *ngIf="f.course.errors">
+                <p class="validate" *ngIf="f.course.errors.required">Este campo es obligatorio.</p>
+            </div>
+            
+        </div>
+
+        <button *ngIf="type" class="btn btn-save" (click)="onSubmit()">
+            Guardar
+        </button>
+
+        <button *ngIf="!type" class="btn btn-save" (click)="updateStudent()">
+            Actualizar
+        </button>
+    </form>
+</div>

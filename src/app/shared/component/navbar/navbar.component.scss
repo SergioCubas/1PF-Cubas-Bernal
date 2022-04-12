@@ -1,0 +1,30 @@
+@import '../../../../sass/variable';
+
+.container-navbar{
+    &__menu{
+        ul{
+            padding: 0;
+            margin: 0;
+            li{
+                list-style: none;
+                a{
+                    width: 100%;
+                    display: flex;
+                    padding: 15px;
+                    box-sizing: border-box;
+                    text-decoration: none;
+                    color: $color-white;
+                    transition: .5s ease all;
+                    svg{
+                        width: 15px;
+                        height: 15px;
+                        margin-right: 5px;
+                    }
+                    &:hover{
+                        background: #1611d4;
+                    }
+                }
+            }
+        }
+    }
+}

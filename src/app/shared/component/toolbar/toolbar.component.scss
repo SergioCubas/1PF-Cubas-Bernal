@@ -1,0 +1,16 @@
+@import '../../../../sass/variable';
+
+.container-toolbar{
+    padding: 5px 20px;
+    box-sizing: border-box;
+    h3{
+        display: flex;
+        align-items: center;
+        color: $color-gray;
+        svg{
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+    }
+}

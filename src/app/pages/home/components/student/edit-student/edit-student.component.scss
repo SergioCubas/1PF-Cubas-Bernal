@@ -1,0 +1,15 @@
+@import '../../../../../../sass/variable';
+
+.container-form{
+    form{
+        display: flex;
+        flex-direction: column;
+
+        .btn-save{
+            width: 100%;
+            padding: 10px 0;
+            background: $color-primary;
+            color: $color-white;
+        }
+    }
+}
