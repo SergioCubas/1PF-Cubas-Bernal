@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { CourseComponent } from "./home/components/course/course.component";
 import { StudentComponent } from "./home/components/student/student.component";
 import { HomeComponent } from "./home/home.component";
 import { PagesComponent } from "./pages.component";
@@ -12,17 +13,14 @@ const routes: Routes = [
     },
     { path: '', component: PagesComponent,
         children: [
-            { path: '', component: HomeComponent,
-                children: [
-                    { path: 'student', component: StudentComponent },
-                ]
-            },
+            { path: 'student', component: StudentComponent },
+            { path: 'course', component: CourseComponent },
         ]
     },
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
 

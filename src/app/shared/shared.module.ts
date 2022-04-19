@@ -6,6 +6,8 @@ import { HeaderComponent } from "./component/header/header.component";
 import { FooterComponent } from "./component/footer/footer.component";
 import { ToolbarComponent } from './component/toolbar/toolbar.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { RouterModule } from "@angular/router";
 
 @NgModule({
     declarations: [
@@ -15,8 +17,10 @@ import { NavbarComponent } from './component/navbar/navbar.component';
         NavbarComponent
     ],
     imports: [
-        BrowserModule,
+        BrowserAnimationsModule,
         MaterialModule,
+        BrowserModule,
+        RouterModule
     ],
     exports:[
         MaterialModule,

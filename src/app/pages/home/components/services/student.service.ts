@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class StudentService {
 
+  studentsPromise! :Promise<any>;
   constructor() { }
 
   validateStudent(data:any):any {
@@ -85,13 +86,24 @@ export class StudentService {
       state: true
     };
   }
-  
 
   getStudents(){
-    const dataInLocalStorage:any = localStorage.getItem('student');
+    this.studentsPromise = new Promise( (resolve, reject) =>{
+      if(localStorage.getItem('student')){
+        const dataInLocalStorage:any = localStorage.getItem('student');
+        const users = JSON.parse(dataInLocalStorage);
 
-    const users = JSON.parse(dataInLocalStorage);
-    return users;
+        resolve(users);
+      }else{
+        const dataInLocalStorage:any = localStorage.getItem('student');
+        const users = JSON.parse(dataInLocalStorage);
+        
+        reject(users)
+      }
+      
+    })
+    
+    return this.studentsPromise;
   }
 
   getStudentsForId(id: any){

@@ -55,11 +55,7 @@
             <mat-form-field appearance="fill">
                 <mat-label>Curso</mat-label>
                 <mat-select formControlName='course'>
-                    <mat-option value="Python">Python</mat-option>
-                    <mat-option value="Data Science">Data Science</mat-option>
-                    <mat-option value="SQL">SQL</mat-option>
-                    <mat-option value="IA">IA</mat-option>
-                    <mat-option value="Java">Java</mat-option>
+                    <mat-option *ngFor="let course of courses" [value]="course.name">{{course.name}}</mat-option>
                 </mat-select>
             </mat-form-field>
             <div *ngIf="f.course.errors">

@@ -16,7 +16,10 @@ import { EditStudentComponent } from './edit-student/edit-student.component';
 })
 export class StudentComponent implements OnInit{
   displayedColumns: string[] = ['id', 'name', 'document', 'email',  'course',  'action'];
-  dataSource:any = [];
+
+  dataSourcePromise!: Promise<any>;
+  dataSource: any[] = [];
+  
   constructor(
     public dialog: MatDialog,
     private studentService: StudentService
@@ -73,10 +76,21 @@ export class StudentComponent implements OnInit{
 
   getDataTable(){
     if(localStorage.getItem('student')){
-      const storage:any = localStorage.getItem('student');
-      const dataJSON = JSON.parse(storage);
   
-      this.dataSource = dataJSON;
+      this.dataSourcePromise = this.studentService.getStudents();
+      this.dataSourcePromise
+      .then( (students) =>{
+        console.log(students);
+        this.dataSource = students;
+      })
+      .catch( (error) => {
+        console.log("Error: ",error);
+        
+      })
+      .finally( () => {
+        console.log("Data cargada.");
+        
+      })
     }
     
   }

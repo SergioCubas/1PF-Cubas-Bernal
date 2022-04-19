@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
+import { CourseService } from '../../services/course.service';
 import { StudentService } from '../../services/student.service';
 
 @Component({
@@ -13,10 +14,15 @@ export class EditStudentComponent implements OnInit {
   frmStudent: FormGroup;
   type: boolean = true;
 
+  courses: any[] = [];
+
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
     private studentService: StudentService,
+    private courseService: CourseService,
+
+
     @Inject(MAT_DIALOG_DATA) public data:any
 
   ) { 
@@ -35,6 +41,8 @@ export class EditStudentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getCourses();
+    
     if(this.data.type === 'edit'){
       this.type = false;
 
@@ -87,6 +95,20 @@ export class EditStudentComponent implements OnInit {
       
     }
     
+  }
+
+  getCourses(){
+    this.courseService.getcourses()
+    .subscribe({
+      next: (data:any) =>{
+        console.log("DATAAA: ",data);
+        
+        this.courses = data;
+      },
+      error: (error) =>{
+        Swal.fire(error, '', 'error');
+      }
+    });
   }
 
 }

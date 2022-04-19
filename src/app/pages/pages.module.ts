@@ -11,6 +11,9 @@ import { StudentComponent } from './home/components/student/student.component';
 import { EditStudentComponent } from './home/components/student/edit-student/edit-student.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FullNamePipe } from '../pipes/full-name.pipe';
+import { StudentService } from './home/components/services/student.service';
+import { CourseComponent } from './home/components/course/course.component';
+import { EditCourseComponent } from './home/components/course/edit-course/edit-course.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,9 @@ import { FullNamePipe } from '../pipes/full-name.pipe';
     PagesComponent,
     HomeComponent,
     StudentComponent,
-    EditStudentComponent
+    EditStudentComponent,
+    CourseComponent,
+    EditCourseComponent
 
 
   ],
@@ -34,6 +39,9 @@ import { FullNamePipe } from '../pipes/full-name.pipe';
     SharedModule,
 
     PagesRoutingModule
+  ],
+  providers: [
+    StudentService
   ]
 })
 export class PagesModule { }
