@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 
     AppRoutingModule,
     SharedModule,
-
+    AuthModule,
     PagesModule
   ],
   providers: [],

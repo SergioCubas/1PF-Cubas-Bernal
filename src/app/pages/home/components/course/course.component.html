@@ -1,6 +1,7 @@
 <app-toolbar [title]="'Lista de Cursos'"></app-toolbar>
 <div class="container-student">
-    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <mat-table 
+    [dataSource]="dataSource" class="mat-elevation-z8">
         <!-- ID -->
         <ng-container matColumnDef="id">
           <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
@@ -29,14 +30,13 @@
           </mat-cell>
         </ng-container>
       
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        
     </mat-table>
+    <mat-paginator [pageSizeOptions]="[10, 20, 30, 40, 50, 60, 70]" showFirstLastButtons></mat-paginator>
 
     <button class="btn btn-add"  (click)="createCourse();">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>    
     </button>
 </div>
-
-<h3> DATA OBSERVABLE </h3>
-{{dataSourceObservable | async | json}}

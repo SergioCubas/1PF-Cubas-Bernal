@@ -1,7 +1,7 @@
 <div class="container-form">
     <form  [formGroup]="frmCourse">
 
-        <div class="form-group">
+        <div class="form-group" *ngIf="!type">
             <mat-form-field appearance="fill" >
                 <mat-label>ID</mat-label>
                 <input matInput formControlName='id' readonly>

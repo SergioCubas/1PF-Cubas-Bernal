@@ -32,52 +32,59 @@ export class EditCourseComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getCourseForId();
     if(this.data.type === 'edit'){
       this.type = false;
-
-      const student = this.courseService.getcoursesForId(this.data.id);
-
-      this.frmCourse = this.fb.group({
-        id: [student[0].id],
-        name: [student[0].name, [Validators.required]]
-      });
-
+      this.getCourseForId();
     }else{
       this.frmCourse.controls['id'].setValue(this.courseService.getCountcourses());
     }
   }
 
+  getCourseForId(){
+    this.courseService.getCourseForId(this.data.id)
+    .subscribe(
+      (data:any) => {
+        this.frmCourse = this.fb.group({
+          id: [data.id],
+          name: [data.name, [Validators.required]]
+        });
+      }
+    )
+  }
+
   onSubmit(){
     const { id, name, last_name, email, course, document} = this.frmCourse.value;
-    console.log("RE: ",this.frmCourse.value);
+    
+    this.frmCourse = this.fb.group({
+      name: [name]
+    });
+    console.log(this.frmCourse.value);
     
     if (name){
-      const response = this.courseService.createCourses(this.frmCourse.value);
-      
-      if(response.state){
-        this.dialog.closeAll();
-        Swal.fire(response.message, '', 'success');
-      }else{
-        Swal.fire(response.message, '', 'error');
-      }
+      this.courseService.postCourse(this.frmCourse.value)
+      .subscribe(
+        (data:any) =>{
+          this.dialog.closeAll();
+          Swal.fire("Curso creado exitosamente.", '', 'success');
+        }
+      )
       
     }
 
   }
 
   updateStudent(){
-    const { id, name, last_name, email, course, document} = this.frmCourse.value;
+    const { name } = this.frmCourse.value;
     
     if (name){
-      const response = this.courseService.editCourses(id, this.frmCourse.value);
-      
-      if(response.state){
-        this.dialog.closeAll();
-        Swal.fire(response.message, '', 'success');
-      }else{
-        Swal.fire(response.message, '', 'error');
-      }
-      
+      this.courseService.putCourseForId(this.frmCourse.value)
+      .subscribe(
+        (data:any) =>{
+          this.dialog.closeAll();
+          Swal.fire('Curso actualizado correctamente', '', 'success');
+        }
+      );
     }
     
   }
