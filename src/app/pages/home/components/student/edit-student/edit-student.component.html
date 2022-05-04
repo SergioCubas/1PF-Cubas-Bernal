@@ -1,7 +1,7 @@
 <div class="container-form">
     <form  [formGroup]="frmStudent">
 
-        <div class="form-group">
+        <div class="form-group" *ngIf="!type">
             <mat-form-field appearance="fill" >
                 <mat-label>ID</mat-label>
                 <input matInput formControlName='id' readonly>
@@ -54,13 +54,10 @@
         <div class="form-group">
             <mat-form-field appearance="fill">
                 <mat-label>Curso</mat-label>
-                <mat-select formControlName='course'>
-                    <mat-option *ngFor="let course of courses" [value]="course.name">{{course.name}}</mat-option>
+                <mat-select formControlName='courseID'>
+                    <mat-option *ngFor="let course of courses" [value]="course.id">{{course.name}}</mat-option>
                 </mat-select>
             </mat-form-field>
-            <div *ngIf="f.course.errors">
-                <p class="validate" *ngIf="f.course.errors.required">Este campo es obligatorio.</p>
-            </div>
             
         </div>
 

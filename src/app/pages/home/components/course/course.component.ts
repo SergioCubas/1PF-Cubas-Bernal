@@ -111,7 +111,6 @@ export class CourseComponent implements OnInit{
 
   getDataTable(){
     if(localStorage.getItem('course')){
-      this.dataSourceObservable = this.courseService.getcourses();
       this.dataSourceSuscription = this.dataSourceObservable
       .subscribe(
         (data:any) => {
@@ -120,9 +119,6 @@ export class CourseComponent implements OnInit{
       );
     
     }
-
-    
-
     
   }
 

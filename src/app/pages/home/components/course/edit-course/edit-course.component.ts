@@ -37,7 +37,6 @@ export class EditCourseComponent implements OnInit {
       this.type = false;
       this.getCourseForId();
     }else{
-      this.frmCourse.controls['id'].setValue(this.courseService.getCountcourses());
     }
   }
 
@@ -59,7 +58,6 @@ export class EditCourseComponent implements OnInit {
     this.frmCourse = this.fb.group({
       name: [name]
     });
-    console.log(this.frmCourse.value);
     
     if (name){
       this.courseService.postCourse(this.frmCourse.value)

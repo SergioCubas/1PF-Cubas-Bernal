@@ -32,7 +32,7 @@ export class EditStudentComponent implements OnInit {
       last_name: ['', [Validators.required]],
       document: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      course: ['', [Validators.required]]
+      courseID: ['', [Validators.required]]
     });
   }
 
@@ -46,69 +46,83 @@ export class EditStudentComponent implements OnInit {
     if(this.data.type === 'edit'){
       this.type = false;
 
-      const student = this.studentService.getStudentsForId(this.data.id);
-
-      this.frmStudent = this.fb.group({
-        id: [student[0].id],
-        name: [student[0].name, [Validators.required]],
-        last_name: [student[0].last_name, [Validators.required]],
-        document: [student[0].document, [Validators.required]],
-        email: [student[0].email, [Validators.required, Validators.email]],
-        course: [student[0].course, [Validators.required]]
-      });
+        this.studentService.getStudentsApiForId(this.data.id)
+        .subscribe(
+          (data:any) =>{
+            
+            this.frmStudent = this.fb.group({
+              id: [data.id],
+              name: [data.name, [Validators.required]],
+              last_name: [data.last_name, [Validators.required]],
+              document: [data.document, [Validators.required]],
+              email: [data.email, [Validators.required, Validators.email]],
+              courseID: [data.courseID, [Validators.required]]
+            });
+        }
+      )
 
     }else{
-      this.frmStudent.controls['id'].setValue(this.studentService.getCountStudents());
     }
   }
 
   onSubmit(){
-    const { id, name, last_name, email, course, document} = this.frmStudent.value;
-    console.log("RE: ",this.frmStudent.value);
+    const { id, name, last_name, email, courseID, document} = this.frmStudent.value;
     
-    if (name && last_name && email && course && document){
-      const response = this.studentService.createStudent(this.frmStudent.value);
+    if (name && last_name && email && courseID && document){
       
-      if(response.state){
-        this.dialog.closeAll();
-        Swal.fire(response.message, '', 'success');
-      }else{
-        Swal.fire(response.message, '', 'error');
-      }
+      this.frmStudent = this.fb.group({
+        name: [name, [Validators.required]],
+        last_name: [last_name, [Validators.required]],
+        document: [document, [Validators.required]],
+        email: [email, [Validators.required, Validators.email]],
+        courseID: [courseID, [Validators.required]]
+      });
+
+      this.studentService.postStudent(this.frmStudent.value)
+      .subscribe(
+        (data:any) =>{
+          this.dialog.closeAll();
+          Swal.fire("Estudiante creado exitosamente.", '', 'success');
+        }
+      )
       
     }
 
   }
 
   updateStudent(){
-    const { id, name, last_name, email, course, document} = this.frmStudent.value;
+    const { id, name, last_name, email, courseID, document} = this.frmStudent.value;
     
-    if (name && last_name && email && course && document){
-      const response = this.studentService.editStudent(id, this.frmStudent.value);
+    if (name && last_name && email && courseID && document){
       
-      if(response.state){
-        this.dialog.closeAll();
-        Swal.fire(response.message, '', 'success');
-      }else{
-        Swal.fire(response.message, '', 'error');
-      }
+      this.frmStudent = this.fb.group({
+        id: [id, [Validators.required]],
+        name: [name, [Validators.required]],
+        last_name: [last_name, [Validators.required]],
+        document: [document, [Validators.required]],
+        email: [email, [Validators.required, Validators.email]],
+        courseID: [courseID, [Validators.required]]
+      });
+
+      this.studentService.putStudentForId(this.frmStudent.value)
+      .subscribe(
+        (data:any) =>{
+          this.dialog.closeAll();
+          Swal.fire("Estudiante actualizado exitosamente.", '', 'success');
+        }
+      )
       
     }
     
   }
 
   getCourses(){
-    this.courseService.getcourses()
-    .subscribe({
-      next: (data:any) =>{
-        console.log("DATAAA: ",data);
-        
+    this.courseService.getCourses()
+    .subscribe(
+      (data:any) =>{
         this.courses = data;
-      },
-      error: (error) =>{
-        Swal.fire(error, '', 'error');
       }
-    });
+    )
   }
 
 }

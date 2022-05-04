@@ -1,131 +1,85 @@
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Subject, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+import { Student } from '../interfaces/student';
+
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudentService {
+  private env =  environment;
+  private student = new Subject();
 
   studentsPromise! :Promise<any>;
-  constructor() { }
 
-  validateStudent(data:any):any {
-    
-    if(!localStorage.getItem('student')){
-      this.createStudent(data);
-    }else{
-      const conditionDocument = this.validateUserForDocument(data);
-      if(conditionDocument){
-        return {
-          message:'usuario existe.',
-          state: false
-        };
+  constructor(
+    private http: HttpClient
+  ) { }
 
-      }else{
-        this.createStudent(data);
-      }
-    }
-    
-  }
-
-  createStudent(data:any){
-    var users = [],
-        dataInLocalStorage = localStorage.getItem('student');
-
-    if (dataInLocalStorage !== null) {
-        users = JSON.parse(dataInLocalStorage);
-    }
-
-    users.push(data);
-
-    localStorage.setItem('student', JSON.stringify(users));
-
-    return {
-      message:'Usuario creado.',
-      state: true
-    };
-  }
-
-  validateUserForDocument(data:any){
-    const storage:any = localStorage.getItem('student');
-    const dataJSON = JSON.parse(storage);
-    var arrayData = data;
-
-    const arrayResponse = arrayData.filter( (data:any) => {
-      if(dataJSON.document != data.document){
-        return true;
-      }else{
-        return false;
-      }
-    });
-
-    return arrayResponse;
-  }
-
-  removeStudent(index:any){
-    var users = [],
-        dataInLocalStorage:any = localStorage.getItem('student');
-
-    users = JSON.parse(dataInLocalStorage);
-    users.splice(index, 1);
-    localStorage.setItem('student', JSON.stringify(users));
-  }
-
-  editStudent(index:any, data:any){
-    var users = [],
-        dataInLocalStorage:any = localStorage.getItem('student');
-
-    users = JSON.parse(dataInLocalStorage);
-    users.splice(index, 1);
-
-    localStorage.setItem('student', JSON.stringify(users));
-    
-    this.createStudent(data);
-
-    return {
-      message:'Usuario editado.',
-      state: true
-    };
-  }
-
-  getStudents(){
-    this.studentsPromise = new Promise( (resolve, reject) =>{
-      if(localStorage.getItem('student')){
-        const dataInLocalStorage:any = localStorage.getItem('student');
-        const users = JSON.parse(dataInLocalStorage);
-
-        resolve(users);
-      }else{
-        const dataInLocalStorage:any = localStorage.getItem('student');
-        const users = JSON.parse(dataInLocalStorage);
-        
-        reject(users)
-      }
-      
+  getStudentsApi(){
+    return this.http.get(this.env.api + `/estudiantes`, {
+      headers: new HttpHeaders({
+        'content-type':'application/json'
+      })
     })
-    
-    return this.studentsPromise;
+    .pipe(
+      map(
+        (data:any) => {
+          return data;
+        }
+      )
+    )
+    .pipe(catchError(this.manejoError));
   }
 
-  getStudentsForId(id: any){
-    const dataInLocalStorage:any = localStorage.getItem('student');
-
-    const users = JSON.parse(dataInLocalStorage);
-    const user = users.filter( (element:any) => {
-      return parseInt(element.id) === id;
+  getStudentsApiForId(id: any){
+    return this.http.get(this.env.api + `/estudiantes/${id}`, {
+      headers: new HttpHeaders({
+        'content-type':'application/json'
+      })
     })
-    return user;
+    .pipe(catchError(this.manejoError));
   }
 
-  getCountStudents(){
-    if(localStorage.getItem('student')){
-      const dataInLocalStorage:any = localStorage.getItem('student');
-      const users = JSON.parse(dataInLocalStorage);
+  postStudent(student: Student){
+    return this.http.post(this.env.api + `/estudiantes`, student);
+  }
 
-      return users.length;
+  putStudentForId(student: Student){
+    this.changesInStudents();
+    return this.http.put(this.env.api + `/estudiantes/${student.id}`, student);
+  }
+
+  deleteStudentForId(id: String){
+    this.changesInStudents();
+    return this.http.delete(this.env.api + `/estudiantes/${id}`);
+  }
+
+  getStudentObs(){
+    return this.student.asObservable();
+  }
+
+  changesInStudents(){
+    this.getStudentsApi()
+    .subscribe(
+      (data:any) =>{
+        this.student.next(data);
+      }
+    )
+  }
+
+  private manejoError(error: HttpErrorResponse){
+    if(error.error instanceof ErrorEvent){
+      console.warn('Error en el Front:', error.error.message)
     }else{
-      return 0;
+      console.warn('Error en el Back:', error.status, error.error.message)
     }
-    
+    return throwError( ()=> 'Error de comunicación HTTP');
   }
+
 
 }
