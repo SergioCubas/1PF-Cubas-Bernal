@@ -1,0 +1,48 @@
+@import '../../../../../sass/variable';
+
+.container-student{
+    padding: 20px;
+    box-sizing: border-box;
+    .actions{
+        button{
+            padding: 10px;
+            svg{
+                width: 18px;
+            }
+            &:first-child{
+                svg{
+                    color: $color-primary;
+                }
+            }
+            &:last-child{
+                svg{
+                    color: $color-red;
+                }
+            }
+        }
+    }
+}
+
+.btn-add{
+    position: absolute;
+    right: 35px;
+    bottom: 26px;
+    background: $color-primary;
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    animation-name: scale;
+    animation-duration: .5s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate-reverse;
+
+    svg{
+        color: $color-white;
+        width: 30px;
+        height: 30px;
+    }
+}

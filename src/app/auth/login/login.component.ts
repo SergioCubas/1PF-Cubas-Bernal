@@ -49,7 +49,6 @@ export class LoginComponent implements OnInit{
     this.authService.getUsers()
     .subscribe(
       (data:any) => {
-
         const validateUser = data.filter(
           (element:any, index:any) => {
             return element.code === codigo;
@@ -58,7 +57,6 @@ export class LoginComponent implements OnInit{
 
         if(validateUser.length > 0){
           this.authService.isLogged(validateUser[0].code);
-
           this.router.navigateByUrl('course');
 
         }else{

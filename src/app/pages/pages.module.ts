@@ -19,6 +19,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StudentService } from './home/components/services/student.service';
 import { CourseComponent } from './home/components/course/course.component';
 import { EditCourseComponent } from './home/components/course/edit-course/edit-course.component';
+import { UserComponent } from './home/components/user/user.component';
+import { EditUserComponent } from './home/components/user/edit-user/edit-user.component';
 
 
 
@@ -32,7 +34,9 @@ import { EditCourseComponent } from './home/components/course/edit-course/edit-c
     StudentComponent,
     EditStudentComponent,
     CourseComponent,
-    EditCourseComponent
+    EditCourseComponent,
+    UserComponent,
+    EditUserComponent
 
 
   ],

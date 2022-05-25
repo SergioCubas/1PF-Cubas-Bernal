@@ -1,0 +1,40 @@
+<div class="container-form">
+    <form  [formGroup]="frmUser">
+
+        <div class="form-group" *ngIf="!type">
+            <mat-form-field appearance="fill" >
+                <mat-label>ID</mat-label>
+                <input matInput formControlName='id' readonly>
+            </mat-form-field>
+        </div>
+
+        <div class="form-group">
+            <mat-form-field appearance="fill">
+                <mat-label>Código</mat-label>
+                <input matInput formControlName='code'>
+            </mat-form-field>
+            <div *ngIf="f.code.errors">
+                <p class="validate" *ngIf="f.code.errors.required">Este campo es obligatorio.</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <mat-form-field appearance="fill">
+                <mat-label>Curso</mat-label>
+                <mat-select formControlName='role'>
+                    <mat-option value="admin">Admin</mat-option>
+                    <mat-option value="student">Estudiante</mat-option>
+                </mat-select>
+            </mat-form-field>
+            
+        </div>
+
+        <button *ngIf="type" class="btn btn-save" (click)="onSubmit()">
+            Guardar
+        </button>
+
+        <button *ngIf="!type" class="btn btn-save" (click)="updateUser()">
+            Actualizar
+        </button>
+    </form>
+</div>

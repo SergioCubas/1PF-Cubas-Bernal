@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { AuthRoutingModule } from "./auth/auth.routing";
+import { AuthRouting } from "./auth/auth-routing.module";
+
 import { CourseComponent } from "./pages/home/components/course/course.component";
 import { StudentComponent } from "./pages/home/components/student/student.component";
 import { HomeComponent } from "./pages/home/home.component";
@@ -15,6 +16,10 @@ const routes: Routes = [
         redirectTo: 'student',
         pathMatch: 'full'
     },
+    { 
+        path: '**', 
+        redirectTo: '/student' 
+    },
     {
         path: 'auth',
         loadChildren: ()=> import('./auth/auth.module').then((m) => m.AuthModule)
@@ -24,7 +29,7 @@ const routes: Routes = [
 @NgModule({
     imports: [
         RouterModule.forRoot(routes),
-        AuthRoutingModule,
+        AuthRouting,
         PagesRoutingModule
     ],
     exports: [RouterModule]
