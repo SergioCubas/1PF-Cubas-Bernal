@@ -1,13 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { AuthRouting } from "./auth/auth-routing.module";
-
-import { CourseComponent } from "./pages/home/components/course/course.component";
-import { StudentComponent } from "./pages/home/components/student/student.component";
-import { HomeComponent } from "./pages/home/home.component";
-import { PagesComponent } from "./pages/pages.component";
-import { PagesRoutingModule } from "./pages/pages.routing";
-
+import { AuthRouting } from "./core/auth-routing.module";
+import { PagesRoutingModule } from "./features/pages.routing";
 
 
 const routes: Routes = [
@@ -22,7 +16,7 @@ const routes: Routes = [
     },
     {
         path: 'auth',
-        loadChildren: ()=> import('./auth/auth.module').then((m) => m.AuthModule)
+        loadChildren: ()=> import('./core/auth.module').then((m) => m.AuthModule)
     }
 ];
 

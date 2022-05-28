@@ -1,0 +1,79 @@
+<div class="container-form">
+    <form  [formGroup]="frmUser">
+
+        <div class="form-group" *ngIf="!type">
+            <mat-form-field appearance="fill" >
+                <mat-label>ID</mat-label>
+                <input matInput formControlName='id' readonly>
+            </mat-form-field>
+        </div>
+
+        <div class="form-group">
+            <mat-form-field appearance="fill">
+                <mat-label>nombre</mat-label>
+                <input matInput formControlName='nombre'>
+            </mat-form-field>
+            <div *ngIf="f.nombre.errors">
+                <p class="validate" *ngIf="f.nombre.errors.required">Este campo es obligatorio.</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <mat-form-field appearance="fill">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName='email'>
+            </mat-form-field>
+            <div *ngIf="f.email.errors">
+                <p class="validate" *ngIf="f.email.errors.required">Este campo es obligatorio.</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <mat-form-field appearance="fill">
+                <mat-label>Dirección</mat-label>
+                <input matInput formControlName='direccion'>
+            </mat-form-field>
+            <div *ngIf="f.direccion.errors">
+                <p class="validate" *ngIf="f.direccion.errors.required">Este campo es obligatorio.</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <mat-form-field appearance="fill">
+                <mat-label>Telefono</mat-label>
+                <input matInput formControlName='telefono'>
+            </mat-form-field>
+            <div *ngIf="f.telefono.errors">
+                <p class="validate" *ngIf="f.telefono.errors.required">Este campo es obligatorio.</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <mat-form-field appearance="fill">
+                <mat-label>Password</mat-label>
+                <input matInput formControlName='password'>
+            </mat-form-field>
+            <div *ngIf="f.password.errors">
+                <p class="validate" *ngIf="f.password.errors.required">Este campo es obligatorio.</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <mat-form-field appearance="fill">
+                <mat-label>Perfil</mat-label>
+                <mat-select formControlName='perfil'>
+                    <mat-option value="admin">Admin</mat-option>
+                    <mat-option value="student">Estudiante</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <button *ngIf="type" class="btn btn-save" (click)="onSubmit()">
+            Guardar
+        </button>
+
+        <button *ngIf="!type" class="btn btn-save" (click)="updateUser()">
+            Actualizar
+        </button>
+    </form>
+</div>

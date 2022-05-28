@@ -1,0 +1,17 @@
+@import '../../sass/variable';
+
+.container-pages{
+    display: flex;
+    height: 100%;
+    &__component{
+        height: 100%;
+        &:first-child{
+            background-color: $color-primary;
+            width: 15%;
+        }
+        &:last-child{
+            background-color: $color-white;
+            width: 85%;
+        }
+    }
+}   

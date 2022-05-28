@@ -20,6 +20,8 @@
     "@angular/platform-browser": "~12.2.0",
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
+    "@ngrx/store": "^12.5.1",
+    "@ngrx/store-devtools": "^12.5.1",
     "ngx-owl-carousel-o": "^6.0.2",
     "rxjs": "~6.6.0",
     "sweetalert2": "^11.1.9",

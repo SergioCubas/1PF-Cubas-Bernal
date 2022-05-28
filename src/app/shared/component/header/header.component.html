@@ -4,17 +4,17 @@
     </div>
     <div class="menu">
         <ul>
-            <li>
+            <li *ngIf="profile!='admin'">
                 <a href="">
                     study @
                 </a>
             </li>
-            <li>
+            <li *ngIf="profile!='admin'">
                 <a href="">
                     Nosotros
                 </a>
             </li>
-            <li>
+            <li *ngIf="profile!='admin'">
                 <a href="">
                     Carreras
                 </a>
